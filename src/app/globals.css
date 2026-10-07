@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: #F7F7F2;
+  --color-primary: #111111;
+  --color-secondary: #686868;
+  --color-deep-green: #0F6B4F;
+  --color-dark-green: #084C3A;
+  --color-gold: #B8944A;
+  --color-light-border: #E5E5DF;
+  --color-dark-section: #111512;
+  
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-dm-serif);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #F7F7F2;
+  --foreground: #111111;
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  cursor: none; /* We use a custom cursor */
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+}
+
+/* Focus Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-deep-green);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-deep-green);
+  outline-offset: 2px;
+}
+
+/* Fallback for when custom cursor is disabled */
+@media (pointer: coarse) or (prefers-reduced-motion: reduce) {
+  body,
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    cursor: auto !important;
+  }
+}
+
+/* When fine pointer with no reduced motion, prevent native hand flickers on custom cursor */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  a, button, [role="button"] {
+    cursor: none;
+  }
+}
+
+/* Reduced Motion Across Application */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Never hide cursor on text entry elements */
+input, textarea, select {
+  cursor: text !important;
+}
+
+/* Utilities */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E5E5DF;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8944A;
 }
